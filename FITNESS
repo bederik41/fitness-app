@@ -1,0 +1,55 @@
+"use client";
+import { useState } from "react";
+
+export default function Page() {
+  const [day, setDay] = useState("Lunes");
+  const [weight, setWeight] = useState("");
+  const [history, setHistory] = useState([]);
+
+  const plan = {
+    Lunes: "Piernas + Cardio",
+    Martes: "Caminata",
+    Miércoles: "Parte superior",
+    Jueves: "Caminata",
+    Viernes: "Full Body",
+    Sábado: "Ligero",
+    Domingo: "Descanso"
+  };
+
+  const addWeight = () => {
+    if(weight){
+      setHistory([...history, weight]);
+      setWeight("");
+    }
+  };
+
+  return (
+    <div>
+      <h1>🔥 Fitness App PRO</h1>
+
+      <h2>Día: {day}</h2>
+      <p>{plan[day]}</p>
+
+      <div>
+        {Object.keys(plan).map(d => (
+          <button key={d} onClick={()=>setDay(d)} style={{margin:5}}>
+            {d}
+          </button>
+        ))}
+      </div>
+
+      <h3>Plan comida</h3>
+      <p>Huevos + aguacate</p>
+      <p>Pollo + arroz + verduras</p>
+      <p>Proteína + ensalada</p>
+
+      <h3>Peso</h3>
+      <input value={weight} onChange={e=>setWeight(e.target.value)} />
+      <button onClick={addWeight}>Guardar</button>
+
+      <ul>
+        {history.map((w,i)=><li key={i}>Semana {i+1}: {w}</li>)}
+      </ul>
+    </div>
+  );
+}
